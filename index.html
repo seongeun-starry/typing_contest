@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스파르타 제일 타자대회</title>
+    <style>
+        .gnb {
+            position: fixed;
+            width:133px;
+            left:17px;
+            right: 0;
+            top:23px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
+
+        .main_logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            text-align: center;
+        }
+
+        .form-box {
+            width:300px;
+            height:187px;
+            padding: 50px;
+            border-radius: 8px;
+            background-color: rgb(255,255,255,0.29);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-box select, .form-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #222222;
+            border-radius: 8px;
+            text-align:center;
+            font-size:18px;
+            color:#fff;
+            
+        }
+
+        .form-box select {
+            width:323px;
+        }
+
+        .form-box input[type="text"]::placeholder,
+        .form-box select::placeholder {
+            text-align:center;
+            font-size: 18px; 
+            color: #fff;}
+
+        .form-box button {
+            width:200px;
+            height:56px;
+            background-color: #E8344E;
+            color: #fff;
+            margin-top:15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size:16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        /* Styling for the image button */
+        .image-button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body style="background-color:#222222">
+    <!--GNB-->
+    <div class="gnb">
+        <div class="navbar">
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/b4fa844d-d042-48fd-953e-45bc1ba2a8e5" style="width:59px;height:45px"
+                alt="honor_rank" class="image-button" onclick="openhonorModal()">
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/256fa052-5024-4947-b44e-75acbea983d2" style="width:59px;height:45px" alt="dishonor_rank" class="image-button" onclick="opendishonorModal()">
+        </div>
+    </div>
+
+    <!--Main Logo-->
+    <div class="container">
+        <div class="main_logo">
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/ffc72ee1-fede-469c-a478-726ea4056255" style="width:421px;height:374px"/>
+        </div>
+    
+        <!--Input-->
+        <div class="form-box">
+            <form>
+                <input type="text" id="name" name="name" placeholder="너의 이름은?">
+                <select id="team" name="team">
+                    <option value="team1">너의 팀명은?</option>
+                    <option value="team2">글로벌팀</option>
+                    <option value="team3">디자인팀</option>
+                    <option value="team4">마케팅팀</option>
+                    <option value="team5">부트캠프1팀</option>
+                    <option value="team6">부트캠프2팀</option>
+                    <option value="team7">온라인팀</option>
+                    <option value="team8">온라인개발팀</option>
+                    <option value="team9">운영팀</option>
+                    <option value="team10">콘텐츠팀</option>
+                    <option value="team11">플랫폼개발팀</option>
+                </select>
+                <button type="submit">도전하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="honor_rank_Modal" class="modal">
+        <div class="modal-content">
+            <!-- Add your content for the modal here -->
+            <h2>명예의 전당</h2>
+            <p>스파르타에서 타자가 가장 빠른 명예의 전사들입니다.</p>
+            <button onclick="closehonorModal()">닫기</button>
+        </div>
+    </div>
+
+    <div id="dishonor_rank_Modal" class="modal">
+        <div class="modal-content">
+            <!-- Add your content for the modal here -->
+            <h2>불명예의 전당</h2>
+            <p>스파르타에서 타자가 가장 느린 불명예의 전사들입니다.</p>
+            <button onclick="closedishonorModal()">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions to open and close the modal
+        function openhonorModal() {
+            document.getElementById('honor_rank_Modal').style.display = 'block';
+        }
+
+        function closehonorModal() {
+            document.getElementById('honor_rank_Modal').style.display = 'none';
+        }
+
+        function opendishonorModal() {
+            document.getElementById('dishonor_rank_Modal').style.display = 'block';
+        }
+
+        function closedishonorModal() {
+            document.getElementById('dishonor_rank_Modal').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
