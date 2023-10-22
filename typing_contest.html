@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스파르타의 제일 가는 전사가 되어라</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #282c35;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #sentenceContainer {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #sentence {
+            font-size: 20px;
+            margin: 0;
+            text-align: center;
+        }
+
+        #typedInput {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #accuracyDisplay,
+        #speedDisplay {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #resultModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .modal-content button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>스파르타 최고의 전사가 되어라</h1>
+        <div id="sentenceContainer">
+            <p id="sentence"></p>
+        </div>
+        <input type="text" id="typedInput" placeholder="문장을 따라 입력하라. 최대한 빨리!">
+        <p id="accuracyDisplay">Accuracy: <span id="accuracy">0</span>%</p>
+        <p id="speedDisplay">Speed: <span id="speed">0</span></p>
+    </div>
+
+    <!-- Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2>스파르타 최고의 전사가 되어라</h2>
+            <p>이름: <span id="userName"></span></p>
+            <p>팀: <span id="userTeam"></span></p>
+            <p>타자 속도: <span id="avgSpeed">0</span></p>
+            <p>타자 정확도: <span id="avgAccuracy">0</span>%</p>
+            <p id="resultMessage" style="color: #E8344E; display: none;">불명예 전당에 명예로운 이름이 등록되었다. 분발하라!</p>
+            <button onclick="closeResultModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for your typing contest
+        const sentences = [
+            "군더더기 없이, 딱! 해야 할 만큼만.",
+            "예측 못한 순간에 맞이하는 감동 포인트.",
+            "고객보다 더 고객을 생각하는 습관.",
+            "모든 일은 절대로 혼자 돌아가지 않습니다.",
+            "나를 성장시킬 수 있는 기회를 계속해서 찾아가세요."
+        ];
+
+        let currentSentenceIndex = 0;
+        let startTime, endTime;
+
+        const sentenceElement = document.getElementById('sentence');
+        const typedInput = document.getElementById('typedInput');
+        const accuracyDisplay = document.getElementById('accuracy');
+        const speedDisplay = document.getElementById('speed');
+        const resultModal = document.getElementById('resultModal');
+
+        function displaySentence() {
+            sentenceElement.textContent = sentences[currentSentenceIndex];
+            typedInput.value = '';
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+        }
+
+        function endTimer() {
+            endTime = Date.now();
+        }
+
+        function calculateSpeed() {
+            if (!startTime || !endTime) {
+                return 0;
+            }
+            const words = sentences[currentSentenceIndex].split(' ').length;
+            const timeInSeconds = (endTime - startTime) / 1000;
+            const speed = Math.round((words / timeInSeconds));
+            return speed;
+        }
+
+
+        function calculateAccuracy() {
+            const typedText = typedInput.value;
+            const originalText = sentences[currentSentenceIndex];
+            const typedLength = typedText.length;
+            const originalLength = originalText.length;
+
+            let correctChars = 0;
+
+            for (let i = 0; i < typedLength; i++) {
+                if (typedText[i] === originalText[i]) {
+                    correctChars++;
+                }
+            }
+
+            const accuracy = (correctChars / originalLength) * 100;
+            return Math.round(accuracy);
+        }
+
+        function nextSentence() {
+            if (currentSentenceIndex < sentences.length - 1) {
+                currentSentenceIndex++;
+                displaySentence();
+                startTimer();
+            } else {
+                // All sentences completed
+                endTimer();
+                const speed = calculateSpeed();
+                const accuracy = calculateAccuracy();
+                const userName = localStorage.getItem('userName');
+                const userTeam = localStorage.getItem('userTeam');
+
+                // Display results in modal
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('userTeam').textContent = userTeam;
+                document.getElementById('avgSpeed').textContent = speed;
+                document.getElementById('avgAccuracy').textContent = accuracy;
+
+                // Check if it's the fifth sentence and show the modal
+                if (currentSentenceIndex === sentences.length - 1) {
+                    // Check if average speed is less than 300 and show the message
+                    if (speed < 300) {
+                        const resultMessage = document.getElementById('resultMessage');
+                        resultMessage.style.display = 'block';
+                    }
+
+                    // Show the result modal
+                    if (currentSentenceIndex === sentences.length - 1) {
+                        resultModal.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+
+        function closeResultModal() {
+            resultModal.style.display = 'none';
+        }
+
+        // Event listeners
+        typedInput.addEventListener('input', () => {
+            const accuracy = calculateAccuracy();
+            const speed = calculateSpeed();
+            accuracyDisplay.textContent = accuracy;
+            speedDisplay.textContent = speed;
+        });
+
+        typedInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                endTimer();
+                nextSentence();
+            }
+        });
+
+        // Start the typing contest
+        displaySentence();
+        startTimer();
+
+        function startTimer() {
+            startTime = Date.now();
+            console.log("Started typing at: " + startTime);
+        }
+
+        function endTimer() {
+            endTime = Date.now();
+            console.log("Finished typing at: " + endTime);
+        }
+
+    </script>
+</body>
+
+</html>
