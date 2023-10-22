@@ -8,15 +8,15 @@
     <style>
         .gnb {
             position: fixed;
-            width:133px;
-            left:17px;
+            width: 133px;
+            left: 17px;
             right: 0;
-            top:23px;
+            top: 23px;
         }
 
         .navbar {
             display: flex;
-            justify-content:space-between;
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -39,47 +39,49 @@
         }
 
         .form-box {
-            width:300px;
-            height:187px;
+            width: 300px;
+            height: 187px;
             padding: 50px;
             border-radius: 8px;
-            background-color: rgb(255,255,255,0.29);
+            background-color: rgb(255, 255, 255, 0.29);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        .form-box select, .form-box input[type="text"] {
+        .form-box select,
+        .form-box input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             background-color: #222222;
             border-radius: 8px;
-            text-align:center;
-            font-size:18px;
-            color:#fff;
-            
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+
         }
 
         .form-box select {
-            width:323px;
+            width: 323px;
         }
 
         .form-box input[type="text"]::placeholder,
         .form-box select::placeholder {
-            text-align:center;
-            font-size: 18px; 
-            color: #fff;}
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+        }
 
-        .form-box button {
-            width:200px;
-            height:56px;
+        .form-box a {
+            width: 200px;
+            height: 56px;
             background-color: #E8344E;
             color: #fff;
-            margin-top:15px;
+            margin-top: 15px;
             padding: 10px 20px;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-size:16px;
+            font-size: 16px;
         }
 
         .modal {
@@ -87,7 +89,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 0%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
             justify-content: center;
@@ -111,36 +113,39 @@
     <!--GNB-->
     <div class="gnb">
         <div class="navbar">
-            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/b4fa844d-d042-48fd-953e-45bc1ba2a8e5" style="width:59px;height:45px"
-                alt="honor_rank" class="image-button" onclick="openhonorModal()">
-            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/256fa052-5024-4947-b44e-75acbea983d2" style="width:59px;height:45px" alt="dishonor_rank" class="image-button" onclick="opendishonorModal()">
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/b4fa844d-d042-48fd-953e-45bc1ba2a8e5"
+                style="width:59px;height:45px" alt="honor_rank" class="image-button" onclick="openhonorModal()">
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/256fa052-5024-4947-b44e-75acbea983d2"
+                style="width:59px;height:45px" alt="dishonor_rank" class="image-button" onclick="opendishonorModal()">
         </div>
     </div>
 
     <!--Main Logo-->
     <div class="container">
         <div class="main_logo">
-            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/ffc72ee1-fede-469c-a478-726ea4056255" style="width:421px;height:374px"/>
+            <img src="https://github.com/seongeun-starry/typing_contest/assets/108180337/ffc72ee1-fede-469c-a478-726ea4056255"
+                style="width:421px;height:374px" />
         </div>
-    
+
         <!--Input-->
         <div class="form-box">
             <form>
                 <input type="text" id="name" name="name" placeholder="너의 이름은?">
                 <select id="team" name="team">
-                    <option value="team1">너의 팀명은?</option>
-                    <option value="team2">글로벌팀</option>
-                    <option value="team3">디자인팀</option>
-                    <option value="team4">마케팅팀</option>
-                    <option value="team5">부트캠프1팀</option>
-                    <option value="team6">부트캠프2팀</option>
-                    <option value="team7">온라인팀</option>
-                    <option value="team8">온라인개발팀</option>
-                    <option value="team9">운영팀</option>
-                    <option value="team10">콘텐츠팀</option>
-                    <option value="team11">플랫폼개발팀</option>
+                    <option value="" disabled selected>너의 팀명은?</option>
+                    <option value="글로벌팀">글로벌팀</option>
+                    <option value="디자인팀">디자인팀</option>
+                    <option value="마케팅팀">마케팅팀</option>
+                    <option value="부트캠프1팀">부트캠프1팀</option>
+                    <option value="부트캠프2팀">부트캠프2팀</option>
+                    <option value="온라인팀">온라인팀</option>
+                    <option value="온라인개발팀">온라인개발팀</option>
+                    <option value="운영팀">운영팀</option>
+                    <option value="콘텐츠팀">콘텐츠팀</option>
+                    <option value="플랫폼개발팀">플랫폼개발팀</option>
                 </select>
-                <button type="submit">도전하기</button>
+                <a href="typing_contest.html">도전하기</a>
+
             </form>
         </div>
     </div>
@@ -181,6 +186,20 @@
         function closedishonorModal() {
             document.getElementById('dishonor_rank_Modal').style.display = 'none';
         }
+
+        function validateForm() {
+            const nameInput = document.getElementById("name");
+            const teamSelect = document.getElementById("team");
+            const challengeLink = document.querySelector('a[href="typing_contest.html"]');
+
+            if (nameInput.value.trim() === '' || teamSelect.value === '') {
+                alert('어이, 이름과 팀을 입력하지 않으면 게임을 시작할 수 없다구.');
+                return false; // Prevent the form from submitting
+            }
+
+            return true; // Allow the form to submit or activate the link
+        }
+
     </script>
 </body>
 
